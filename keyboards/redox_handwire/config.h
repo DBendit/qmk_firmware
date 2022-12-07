@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define MATRIX_ROW_PINS { GP6, GP5, GP4, GP3, GP2 }
 #define MATRIX_COL_PINS { GP16, GP17, GP18, GP19, GP20, GP21, GP22 }
+#define MATRIX_COL_PINS_RIGHT { GP22, GP21, GP20, GP19, GP18, GP17, GP16 }
 
 #define DIODE_DIRECTION COL2ROW
 
@@ -35,3 +36,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_RX_PIN GP1
 #define SERIAL_USART_PIN_SWAP
 #define SERIAL_PIO_USE_PIO1
+
+#define BOOTMAGIC_LITE_ROW 0
+#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_ROW_RIGHT 5
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 0
