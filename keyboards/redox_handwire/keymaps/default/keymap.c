@@ -23,13 +23,23 @@ enum unicode_names {
   PARTY,
   NEG1,
   RAGE,
+  UPSIDE_DOWN,
+  MELTING,
+  ROLLING_EYES,
+  JOY,
+  LAUGHING,
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [PLUS1] = 0x1F44D,
-  [PARTY] = 0x1F973,
-  [NEG1]  = 0x1F44E,
-  [RAGE]  = 0x1F621,
+  [PLUS1]        = 0x1F44D,
+  [PARTY]        = 0x1F973,
+  [NEG1]         = 0x1F44E,
+  [RAGE]         = 0x1F621,
+  [UPSIDE_DOWN]  = 0x1F643,
+  [MELTING]      = 0x1FAE0,
+  [ROLLING_EYES] = 0x1F644,
+  [JOY]          = 0x1F602,
+  [LAUGHING]     = 0x1F923,
 };
 
 #define SFT_D       MT(MOD_LSFT, KC_D)
@@ -61,6 +71,9 @@ const uint32_t PROGMEM unicode_map[] = {
 
 #define KC_POS      XP(PLUS1, PARTY)
 #define KC_NEG      XP(NEG1, RAGE)
+#define KC_SAR      XP(UPSIDE_DOWN, ROLLING_EYES)
+#define KC_LAF      XP(JOY, LAUGHING)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -68,7 +81,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //┌────────┬────────┬────────┬────────┬────────┬────────┐                                           ┌────────┬────────┬────────┬────────┬────────┬────────┐
      KC_GRV  ,KC_1    ,KC_2    ,KC_3    ,KC_4    ,KC_5    ,                                            KC_6    ,KC_7    ,KC_8    ,KC_9    ,KC_0    ,KC_MINS ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,KC_LBRC ,                          KC_RBRC , KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_EQL  ,
+     KC_TAB  ,KC_Q    ,KC_W    ,KC_E    ,KC_R    ,KC_T    ,KC_SAR  ,                          KC_LAF  , KC_Y    ,KC_U    ,KC_I    ,KC_O    ,KC_P    ,KC_EQL  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      KC_ESC  ,LT2_A   ,ALT_S   ,SFT_D   ,CTL_F   ,KC_G    ,KC_ENT  ,                          KC_ENT  ,KC_H    ,CTL_J   ,SFT_K   ,ALT_L   ,LT2_SCL ,KC_QUOT ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
