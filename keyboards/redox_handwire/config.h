@@ -22,9 +22,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MATRIX_ROWS 10
 #define MATRIX_COLS 7
 
-#define MATRIX_ROW_PINS { GP6, GP5, GP4, GP3, GP2 }
-#define MATRIX_COL_PINS { GP16, GP17, GP18, GP19, GP20, GP21, GP22 }
-#define MATRIX_COL_PINS_RIGHT { GP22, GP21, GP20, GP19, GP18, GP17, GP16 }
+#define MATRIX_ROW_PINS \
+  { GP6, GP5, GP4, GP3, GP2 }
+#define MATRIX_COL_PINS \
+  { GP16, GP17, GP18, GP19, GP20, GP21, GP22 }
+#define MATRIX_COL_PINS_RIGHT \
+  { GP22, GP21, GP20, GP19, GP18, GP17, GP16 }
 
 #define DIODE_DIRECTION COL2ROW
 
