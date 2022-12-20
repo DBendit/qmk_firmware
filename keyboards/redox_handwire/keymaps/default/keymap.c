@@ -162,6 +162,18 @@ bool get_permissive_hold(uint16_t keycode, keyrecord_t *record) {
   }
 }
 
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
+  switch (keycode) {
+    case SFT_D:
+    case SFT_K:
+    case SFT_E:
+    case SFT_S:
+      return 130;
+    default:
+      return TAPPING_TERM;
+  }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_achordion(keycode, record)) { return false; }
 
@@ -178,7 +190,7 @@ bool achordion_chord(uint16_t tap_hold_keycode,
       other_keycode &= 0xff;  // Get base keycode
   }
 
-  // Allow same-hand holS with non-alpha keys
+  // Allow same-hand holds with non-alpha keys
   if (other_keycode > KC_Z) { return true; }
 
   return achordion_opposite_hands(tap_hold_record, other_record);
