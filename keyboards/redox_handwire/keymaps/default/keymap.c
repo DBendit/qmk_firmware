@@ -182,6 +182,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   return true;
 }
 
+// Sticking with default impl, since I keep triggering Alt-'-' when trying to
+// type "brazil-"
+/*
 bool achordion_chord(uint16_t tap_hold_keycode,
                      keyrecord_t* tap_hold_record,
                      uint16_t other_keycode,
@@ -197,6 +200,7 @@ bool achordion_chord(uint16_t tap_hold_keycode,
 
   return achordion_opposite_hands(tap_hold_record, other_record);
 }
+*/
 
 void matrix_scan_user(void) {
   achordion_task();
