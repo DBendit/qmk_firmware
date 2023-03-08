@@ -31,6 +31,11 @@ enum unicode_names {
   LAUGHING,
 };
 
+enum custom_keycodes {
+  MD_WINC = SAFE_RANGE,
+  MD_MAC
+};
+
 // clang-format off
 const uint32_t PROGMEM unicode_map[] = {
   [PLUS1]        = 0x1F44D,
@@ -143,7 +148,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┐                         ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,                          XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┤                         ├────────┼────────┼────────┼────────┼────────┼────────┼────────┤
-     KC_ADJ  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_GAM  ,UC_WINC ,                          UC_MAC  ,XXXXXXX ,KC_QWE  ,KC_COL  ,XXXXXXX ,XXXXXXX ,KC_ADJ  ,
+     KC_ADJ  ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,KC_GAM  ,MD_WINC ,                          MD_MAC  ,XXXXXXX ,KC_QWE  ,KC_COL  ,XXXXXXX ,XXXXXXX ,KC_ADJ  ,
   //├────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┐       ┌────────┼────────┼────────┼────────┼────────┼────────┼────────┼────────┤
      XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,        XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,XXXXXXX ,
   //├────────┼────────┼────────┼────────┼────┬───┴────┬───┼────────┼────────┤       ├────────┼────────┼───┬────┴───┬────┼────────┼────────┼────────┼────────┤
@@ -178,6 +183,27 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
   if (!process_achordion(keycode, record)) { return false; }
+
+  switch (keycode) {
+    case MD_WINC:
+      if (record->event.pressed) {
+        set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
+        keymap_config.raw = eeconfig_read_keymap();
+        keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = false;
+        eeconfig_update_keymap(keymap_config.raw);
+        clear_keyboard();
+      }
+      break;
+    case MD_MAC:
+      if (record->event.pressed) {
+        set_unicode_input_mode(UNICODE_MODE_MACOS);
+        keymap_config.raw = eeconfig_read_keymap();
+        keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;
+        eeconfig_update_keymap(keymap_config.raw);
+        clear_keyboard();
+      }
+      break;
+  }
 
   return true;
 }
