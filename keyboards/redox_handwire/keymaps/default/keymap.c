@@ -1,5 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "features/achordion.h"
 
 // Each layer gets a name for readability, which is then used in the keymap
 // matrix below. The underscores don't mean anything - you can have a layer
@@ -76,10 +75,10 @@ const uint32_t PROGMEM unicode_map[] = {
 #define KC_COL      DF(_COLEMAK)
 #define KC_GAM      TG(_GAMING)
 
-#define KC_POS      XP(PLUS1, PARTY)
-#define KC_NEG      XP(NEG1, RAGE)
-#define KC_SAR      XP(UPSIDE_DOWN, ROLLING_EYES)
-#define KC_LAF      XP(JOY, LAUGHING)
+#define KC_POS      UP(PLUS1, PARTY)
+#define KC_NEG      UP(NEG1, RAGE)
+#define KC_SAR      UP(UPSIDE_DOWN, ROLLING_EYES)
+#define KC_LAF      UP(JOY, LAUGHING)
 
 
 // clang-format off
@@ -182,53 +181,27 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t* record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t* record) {
-  if (!process_achordion(keycode, record)) { return false; }
-
   switch (keycode) {
     case MD_WINC:
       if (record->event.pressed) {
         set_unicode_input_mode(UNICODE_MODE_WINCOMPOSE);
-        keymap_config.raw = eeconfig_read_keymap();
+        eeconfig_read_keymap(&keymap_config);
         keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = false;
-        eeconfig_update_keymap(keymap_config.raw);
+        eeconfig_update_keymap(&keymap_config);
         clear_keyboard();
       }
       break;
     case MD_MAC:
       if (record->event.pressed) {
         set_unicode_input_mode(UNICODE_MODE_MACOS);
-        keymap_config.raw = eeconfig_read_keymap();
+        eeconfig_read_keymap(&keymap_config);
         keymap_config.swap_lctl_lgui = keymap_config.swap_rctl_rgui = true;
-        eeconfig_update_keymap(keymap_config.raw);
+        eeconfig_update_keymap(&keymap_config);
         clear_keyboard();
       }
       break;
   }
 
   return true;
-}
-
-// Sticking with default impl, since I keep triggering Alt-'-' when trying to
-// type "brazil-"
-/*
-bool achordion_chord(uint16_t tap_hold_keycode,
-                     keyrecord_t* tap_hold_record,
-                     uint16_t other_keycode,
-                     keyrecord_t* other_record) {
-  switch (other_keycode) {
-    case QK_MOD_TAP ... QK_MOD_TAP_MAX:
-    case QK_LAYER_TAP ... QK_LAYER_TAP_MAX:
-      other_keycode &= 0xff;  // Get base keycode
-  }
-
-  // Allow same-hand holds with non-alpha keys
-  if (other_keycode > KC_Z) { return true; }
-
-  return achordion_opposite_hands(tap_hold_record, other_record);
-}
-*/
-
-void matrix_scan_user(void) {
-  achordion_task();
 }
 
